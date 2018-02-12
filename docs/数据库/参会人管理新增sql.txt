@@ -1,0 +1,345 @@
+﻿
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for accommodation_info
+-- ----------------------------
+DROP TABLE IF EXISTS `accommodation_info`;
+CREATE TABLE `accommodation_info` (
+  `a_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `join_id` int(11) NOT NULL COMMENT '参会人id',
+  `a_name` varchar(255) NOT NULL COMMENT '酒店名称',
+  `a_type` varchar(255) NOT NULL COMMENT '酒店房型',
+  `in_time` datetime NOT NULL COMMENT '入住时间',
+  `out_time` datetime NOT NULL COMMENT '退房时间',
+  `room_num` varchar(255) DEFAULT NULL COMMENT '房间号',
+  `days` int(11) NOT NULL COMMENT '天数',
+  `price` varchar(255) NOT NULL COMMENT '单价',
+  `total_price` varchar(255) NOT NULL COMMENT '总价',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '数据状态0失效/1正常/2修改',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `create_user` int(11) NOT NULL COMMENT '创建人',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_user` int(11) DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`a_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='参会人住宿信息表';
+
+
+-- ----------------------------
+-- Table structure for confirm_user_info
+-- ----------------------------
+DROP TABLE IF EXISTS `confirm_user_info`;
+CREATE TABLE `confirm_user_info` (
+  `confirm_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '参会人信息确认表id',
+  `join_id` int(11) NOT NULL COMMENT '参会人id',
+  `qrcode_code` varchar(100) NOT NULL COMMENT '二维码数字码编码生成规则【6位随机数+id】',
+  `confirm_time` datetime NOT NULL COMMENT '确认时间',
+  `confirm_type` tinyint(4) NOT NULL COMMENT '确认类型0超时确认/1用户确认/2后台确认/3用户第三方链接确认',
+  `tpl_id` int(11) DEFAULT NULL COMMENT '邀请函模板id，后台确认，第三方链接确认方式则空',
+  `is_come_ticket` tinyint(4) DEFAULT NULL COMMENT '是否需要预定去程车/机票',
+  `come_type` tinyint(4) DEFAULT NULL COMMENT '去程方式0火车/1飞机',
+  `come_time` datetime DEFAULT NULL COMMENT '去程日期',
+  `come_code` varchar(255) DEFAULT NULL COMMENT '去程航班/车次',
+  `come_begin_city` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '去程出发地',
+  `come_end_city` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '去程目的地',
+  `is_leave_ticket` tinyint(4) DEFAULT NULL COMMENT '是否需要预订返程机票',
+  `leave_type` tinyint(4) DEFAULT NULL COMMENT '返程出行方式0火车/1飞机',
+  `leave_time` datetime DEFAULT NULL COMMENT '返程出发日期',
+  `leave_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '返程意向航班号／车次号',
+  `leave_begin_city` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '返程出发地',
+  `leave_end_city` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '返程目的地',
+  `is_connet` tinyint(4) DEFAULT NULL COMMENT '是否需要接机',
+  `is_send` tinyint(4) DEFAULT NULL COMMENT '是否需要送机',
+  `is_hotel` tinyint(4) DEFAULT NULL COMMENT '是否需要预订酒店 0 false 1 true',
+  `room_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '意向房型',
+  `check_in_time` datetime DEFAULT NULL COMMENT '入住日期',
+  `check_out_time` datetime DEFAULT NULL COMMENT '退房日期',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `create_user` int(11) NOT NULL DEFAULT '0' COMMENT '创建人，如果为用户创建，默认为0',
+  PRIMARY KEY (`confirm_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='参会人确认信息';
+
+
+
+-- ----------------------------
+-- Table structure for invitation_send
+-- ----------------------------
+DROP TABLE IF EXISTS `invitation_send`;
+CREATE TABLE `invitation_send` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `join_id` int(11) NOT NULL COMMENT '参会人id',
+  `send_user` int(11) NOT NULL COMMENT '发送人',
+  `send_time` datetime NOT NULL COMMENT '发送时间',
+  `send_type` bit(1) NOT NULL COMMENT '发送类型0默认模板/1自定义模板/2模板链接',
+  `tpl_id` int(11) DEFAULT NULL COMMENT '模板id',
+  `constom_url` varchar(255) DEFAULT NULL COMMENT '自定义模板地址',
+  `rfp_id` int(11) NOT NULL COMMENT '会议id',
+  `extend` varchar(255) DEFAULT NULL COMMENT '扩展',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='发送邀请表';
+
+
+
+-- ----------------------------
+-- Table structure for invitation_tpl
+-- ----------------------------
+DROP TABLE IF EXISTS `invitation_tpl`;
+CREATE TABLE `invitation_tpl` (
+  `tpl_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `rfp_id` int(11) NOT NULL COMMENT '询单ID',
+  `bg_img_url` varchar(255) DEFAULT NULL COMMENT '背景图地址',
+  `name` varchar(255) NOT NULL COMMENT '邀请函名称',
+  `title` varchar(255) NOT NULL COMMENT '会议名称',
+  `begin_time` datetime NOT NULL COMMENT '会议时间',
+  `end_time` datetime NOT NULL COMMENT '会议结束时间',
+  `address` varchar(255) NOT NULL COMMENT '会议地点',
+  `confirm_time` datetime NOT NULL COMMENT '生效时间',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `create_user` int(11) NOT NULL COMMENT '创建人',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '数据状态0失效/1正常/2修改',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_user` int(11) DEFAULT NULL COMMENT '更新人',
+  PRIMARY KEY (`tpl_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='邀请模板表';
+
+
+-- ----------------------------
+-- Table structure for join_users
+-- ----------------------------
+DROP TABLE IF EXISTS `join_users`;
+CREATE TABLE `join_users` (
+  `join_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '参会人主键',
+  `rfp_id` int(10) unsigned NOT NULL COMMENT '询单id',
+  `name` varchar(255) NOT NULL COMMENT '参会人姓名',
+  `spelling` varchar(255) NOT NULL COMMENT '参会人姓名拼音',
+  `sex` tinyint(1) DEFAULT NULL COMMENT '性别 0女 / 1 男',
+  `phone` varchar(20) NOT NULL COMMENT '手机号',
+  `city` varchar(255) DEFAULT NULL COMMENT '所在城市',
+  `company` varchar(255) DEFAULT NULL COMMENT '单位名称',
+  `duty` varchar(255) DEFAULT NULL COMMENT '职称/职位',
+  `id_card` varchar(18) DEFAULT NULL COMMENT '身份证号',
+  `email` varchar(255) DEFAULT NULL COMMENT '邮箱',
+  `room_type` varchar(255) DEFAULT NULL COMMENT '意向房间',
+  `often_id` int(11) DEFAULT NULL COMMENT '所关联的常用参会人id',
+  `create_user` int(11) NOT NULL COMMENT '添加人',
+  `create_time` datetime NOT NULL COMMENT '添加时间',
+  `update_user` int(11) DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `status` tinyint(1) DEFAULT '1' COMMENT '数据状态0失效/1正常/2变更',
+  `extend1` varchar(255) DEFAULT NULL COMMENT '备用字段',
+  PRIMARY KEY (`join_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='参会人员表';
+
+
+
+-- ----------------------------
+-- Table structure for often_users
+-- ----------------------------
+DROP TABLE IF EXISTS `often_users`;
+CREATE TABLE `often_users` (
+  `often_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '常用参会人员表',
+  `name` varchar(255) NOT NULL COMMENT '参会人姓名',
+  `sex` tinyint(1) DEFAULT NULL COMMENT '性别',
+  `phone` varchar(20) NOT NULL COMMENT '手机号',
+  `city` varchar(50) DEFAULT NULL COMMENT '所在城市',
+  `company` varchar(255) DEFAULT NULL COMMENT '单位名称',
+  `duty` varchar(100) DEFAULT NULL COMMENT '职称/职位',
+  `id_card` varchar(18) DEFAULT NULL COMMENT '身份证号',
+  `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
+  `room_type` varchar(50) DEFAULT NULL COMMENT '意向房间',
+  `create_user` int(11) NOT NULL COMMENT '添加人',
+  `create_time` datetime NOT NULL COMMENT '添加时间',
+  `update_user` int(11) DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '数据状态0失效/1正常/2修改',
+  `extend1` varchar(255) DEFAULT NULL COMMENT '备用字段',
+  PRIMARY KEY (`often_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='常用参会人员表';
+
+
+
+-- ----------------------------
+-- Table structure for participant_log
+-- ----------------------------
+DROP TABLE IF EXISTS `participant_log`;
+CREATE TABLE `participant_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `join_id` int(11) DEFAULT NULL COMMENT '参会人id',
+  `table_name` varchar(20) NOT NULL COMMENT '操作表的名称',
+  `table_id` int(10) unsigned NOT NULL COMMENT '操作表的ID',
+  `rfp_id` int(11) DEFAULT NULL COMMENT '会议id',
+  `belong` int(11) NOT NULL COMMENT '日志归属用户',
+  `ip` varchar(15) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '操作者ip',
+  `type` int(11) NOT NULL COMMENT '日志操作类型0默认/1参会人管理/2邀请函/3出行/4住宿/5用车/6常用参会人/7服务商/8确认信息',
+  `content` varchar(255) NOT NULL COMMENT '日志内容',
+  `node` varchar(255) NOT NULL COMMENT '触发节点',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `extends` varchar(255) DEFAULT NULL COMMENT '拓展',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='参会操作记录表[参会人/服务商/常用参会人等模块]';
+
+
+
+
+
+
+
+-- ----------------------------
+-- Table structure for rfp_link
+-- ----------------------------
+DROP TABLE IF EXISTS `rfp_link`;
+CREATE TABLE `rfp_link` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `rfp_id` int(10) unsigned NOT NULL COMMENT '询单id',
+  `s_id` int(10) unsigned NOT NULL COMMENT '服务商id',
+  `role_id` int(10) unsigned NOT NULL COMMENT '操作人id',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `extend` varchar(255) DEFAULT NULL COMMENT '备用字段',
+  `seavers_staff_id` int(10) NOT NULL COMMENT '服务商员工id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='询单，服务商关联表';
+
+
+-- ----------------------------
+-- Table structure for seavers_staff
+-- ----------------------------
+DROP TABLE IF EXISTS `seavers_staff`;
+CREATE TABLE `seavers_staff` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `s_id` int(11) NOT NULL COMMENT '服务商id',
+  `name` varchar(50) NOT NULL COMMENT '姓名',
+  `sex` tinyint(1) NOT NULL COMMENT '性别',
+  `phone` varchar(20) NOT NULL COMMENT '手机',
+  `id_card` varchar(18) NOT NULL COMMENT '身份证号',
+  `email` varchar(100) NOT NULL COMMENT '邮箱',
+  `company` varchar(100) NOT NULL COMMENT '职位名称',
+  `users_id` int(11) NOT NULL COMMENT '关联管理员用户',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '数据状态0失效/1正常',
+  `create_user` int(11) NOT NULL COMMENT '创建人',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_user` int(11) DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='服务商员工';
+
+
+-- ----------------------------
+-- Table structure for servers
+-- ----------------------------
+DROP TABLE IF EXISTS `servers`;
+CREATE TABLE `servers` (
+  `s_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(100) NOT NULL COMMENT '服务名称',
+  `head` varchar(20) NOT NULL COMMENT '负责人',
+  `phone` varchar(20) NOT NULL COMMENT '联系方式',
+  `email` varchar(100) NOT NULL COMMENT '邮箱',
+  `prov` int(11) NOT NULL COMMENT '省',
+  `prov_name` varchar(20) DEFAULT NULL COMMENT '省份名称',
+  `city` int(11) NOT NULL COMMENT '市',
+  `city_name` varchar(20) DEFAULT NULL COMMENT '城市名称',
+  `area` int(11) NOT NULL COMMENT '县/区 /镇',
+  `area_name` varchar(20) DEFAULT NULL COMMENT '区名称',
+  `adderss` varchar(255) NOT NULL COMMENT '详细地址',
+  `create_user` int(11) NOT NULL COMMENT '创建人',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_user` int(11) NOT NULL COMMENT '更新人',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '数据状态0删除/1正常(启用)/2修改/3停用',
+  PRIMARY KEY (`s_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='服务商';
+
+
+-- ----------------------------
+-- Table structure for sign_in
+-- ----------------------------
+DROP TABLE IF EXISTS `sign_in`;
+CREATE TABLE `sign_in` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '签到表主键',
+  `join_id` int(11) NOT NULL COMMENT '参会人ID',
+  `sign_in_type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '签到方式 1 扫码 / 2 输入编码',
+  `sign_in_time` datetime NOT NULL COMMENT '签到时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='签到表';
+
+
+-- ----------------------------
+-- Table structure for sms_send
+-- ----------------------------
+DROP TABLE IF EXISTS `sms_send`;
+CREATE TABLE `sms_send` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `join_id` int(11) NOT NULL COMMENT '接收参会人id',
+  `send_user` int(11) NOT NULL COMMENT '发送人',
+  `send_content` varchar(255) NOT NULL COMMENT '发送内容',
+  `send_time` datetime NOT NULL COMMENT '发送时间',
+  `is_true` int(11) NOT NULL COMMENT '是否发送成功',
+  `extends` varchar(255) NOT NULL COMMENT '扩展',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='短信发送记录表';
+
+-- ----------------------------
+-- Records of sms_send
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for travel_info
+-- ----------------------------
+DROP TABLE IF EXISTS `travel_info`;
+CREATE TABLE `travel_info` (
+  `t_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `join_id` int(11) NOT NULL COMMENT '参会人id',
+  `t_way` tinyint(2) NOT NULL DEFAULT '1' COMMENT '出行方式  0无效/1去程 / 2返程 ',
+  `t_type` int(11) NOT NULL COMMENT '出行类型 0无效1飞机2火车',
+  `begin_time` datetime NOT NULL COMMENT '出行日期',
+  `begin_city` varchar(255) NOT NULL COMMENT '始发地',
+  `end_city` varchar(255) NOT NULL COMMENT '目的地',
+  `t_code` varchar(255) NOT NULL COMMENT '航班号/车次号',
+  `t_level` varchar(255) NOT NULL COMMENT '仓位/座位等级',
+  `t_money` decimal(10,0) NOT NULL COMMENT '机票/车票价格',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '数据状态0失效/1正常/2修改',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `create_user` int(11) NOT NULL COMMENT '创建人',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_user` int(11) DEFAULT NULL COMMENT '更新人',
+  PRIMARY KEY (`t_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='出行信息表';
+
+
+-- ----------------------------
+-- Table structure for use_car_info
+-- ----------------------------
+DROP TABLE IF EXISTS `use_car_info`;
+CREATE TABLE `use_car_info` (
+  `uci_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `join_id` int(11) NOT NULL COMMENT '参会人id',
+  `uci_way` tinyint(2) NOT NULL DEFAULT '0' COMMENT '用车类型，0 无效 /1 接机、车/2 送机、车',
+  `begin_city` varchar(255) NOT NULL COMMENT '出发城市',
+  `begin_time` datetime NOT NULL COMMENT '出发时间',
+  `begion_address` varchar(255) NOT NULL COMMENT '出发地',
+  `end_address` varchar(255) NOT NULL COMMENT '目的地',
+  `price` decimal(10,0) NOT NULL COMMENT '价格',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '数据状态0失效/1正常/2修改',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `create_user` int(11) NOT NULL COMMENT '创建人',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_user` int(11) DEFAULT NULL COMMENT '更新人',
+  PRIMARY KEY (`uci_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='参会人用车信息';
+
+
+-- ----------------------------
+-- Table structure for `notify_send`
+-- ----------------------------
+DROP TABLE IF EXISTS `notify_send`;
+CREATE TABLE `notify_send` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `join_id` int(11) NOT NULL COMMENT '参会人id',
+  `send_user` int(11) NOT NULL COMMENT '发送人',
+  `send_time` datetime NOT NULL COMMENT '发送时间',
+  `send_type` bit(1) DEFAULT NULL COMMENT '发送类型0默认模板/1自定义模板/2模板链接',
+  `tpl_id` int(11) DEFAULT NULL COMMENT '模板id',
+  `constom_url` varchar(255) DEFAULT NULL COMMENT '自定义模板地址',
+  `rfp_id` int(11) NOT NULL COMMENT '会议id',
+  `extend` varchar(255) DEFAULT NULL COMMENT '扩展',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='发送通知表';

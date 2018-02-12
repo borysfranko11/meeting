@@ -1,0 +1,215 @@
+header article {
+    background: #fff;
+}
+/* 重置tab切换的样式 */
+.el-tabs__item.is-active {
+    color: #00B6B9;
+}
+.el-tabs__active-bar {
+    background-color: #00B6B9;
+}
+.el-tabs__item {
+    font-size: 15px;
+}
+main article {
+    margin-top: 22px;
+    padding: 0;
+}
+/* 场地订单样式 */
+.place-rate .order-des span{
+    padding-left: 16px;
+}
+.time {
+    font-size: 13px;
+    color: #999;
+  }
+  
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+
+  .button {
+    padding: 0;
+    float: right;
+  }
+
+  .image {
+    width: 100%;
+    display: block;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+      display: table;
+      content: "";
+  }
+  
+  .clearfix:after {
+      clear: both
+  }
+.bgcol-gray{
+    background: #f5f7f8;
+}
+.el-tabs__header {
+    margin: 0 0 20px;
+    border-bottom: 1px solid #E7EBEE;
+}
+/* .el-card_body .obdtitle{
+    border-top: 2px solid #eee !important;
+} */
+/* 在使用猫头鹰选择器后的权重过大，想要在进行修改只能选择在猫头鹰基础上增加选择器或内联样式； */
+.el-card__body div + div{
+    border-top: 1px dashed #e8e9eb;
+    box-sizing: border-box;
+}
+.el-card__body div + div:nth-child(2){
+    border-top: 2px solid #eee;
+    box-sizing: border-box;
+}
+
+.el-tabs p{
+    margin: 0;
+}
+.el-tabs div p + p{
+    margin-top: 20px;
+}
+.ft18{
+    font-size: 16px;
+}
+.order-des .el-form-item__content{
+    line-height: 32px;
+}
+.mt30{
+    margin-top: 30px;
+}
+/* 会议执行信息模块 */
+.ml20p{
+    margin-left: 20%;
+}
+.cont-table{
+    border: 1px solid #efeeee;
+}
+.cont-table dl{
+    margin-bottom: 0;
+}
+.cont-table dl dt,.cont-table dl dd{
+    padding: 16px;
+    line-height: 1;
+}
+.cont-table dl dt{
+    border-bottom: 2px solid #efeeee;
+}
+.cont-table dl dd + dd{
+    border-top: 1px solid #efeeee;
+}
+body .cont-table dl p{
+    margin-top: 0;
+    float: left;
+}
+.cont-table dt p:nth-child(1){
+    width: 30%;
+    text-align: center;
+}
+.cont-table dt p:nth-child(2){
+    width: 50%;
+    text-align: center;
+}
+.cont-table dd p:nth-child(1){
+    width: 15%;
+    text-align: right;
+}
+.cont-table dd p:nth-child(2){
+    width: 15%;
+    text-align: left;
+    padding-left: 20px;
+}
+.cont-table dd p:nth-child(3){
+    width: 20%;
+    text-align: right;
+}
+.cont-table dd p:nth-child(4){
+    width: 50%;
+    text-align: left;    
+    padding-left: 20px;
+}
+.cont-table dd:last-child{
+    background: #f4f8f9;
+}
+.el-card .el-form-item .el-form-item__label:before {
+    content: '';
+    display: none;
+    margin-right: 0;
+    width: 0;
+    height: 0;
+}
+.el-card .el-form-item .el-form-item__label{
+    color: #333;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+.el-card .el-form-item {
+    margin-bottom: 0;
+}
+.cont1 article {
+    margin-bottom: 22px;
+}
+/* 对评价服务该项的样式进行修改 */
+.el-card__body .evalu-des div + div{
+    border:none;
+    box-sizing: border-box;
+}
+.el-table__header-wrapper{
+    background: #f5f7f8;
+}
+/* 消费对比样式 */
+.cost-compare dl dt{
+    background: #f4f7f8;
+}
+.cost-compare .cont-table {
+    border: none;
+}
+.cost-compare .cont-table dt p{
+    width: 26%;
+    text-align: center;
+}
+.cost-compare .cont-table dt p:last-child{
+    width: 16%;
+}
+.cost-compare .cont-table dd p:nth-child(odd){
+    width: 13%;
+    /* min-width: 13%; */
+    text-align: right;
+}
+.cost-compare .cont-table dd p:nth-child(even){
+    width: 13%;
+    /* min-width: 13%; */
+    text-align: left;
+    padding-left: 10px;
+}
+.cost-compare .cont-table dd p:last-child{
+    width: 16%;
+    /* min-width: 16%; */
+    text-align: center;
+}
+/* .cost-compare .cont-table dd p {
+    padding-left: 0;
+} */
+.cost-compare .cont-table dd:last-child {
+    background: none;
+}
+.martop{
+    margin-top: 30px;
+}
+.cont-nums .el-col{
+    display: inline-block;
+    vertical-align: top;
+}
+.cont-nums .el-col-7{
+    display: inline-block;
+    vertical-align: baseline;
+    float: none;
+}
+.cont-nums> div:nth-child(3n+4){
+    margin-left: 0;
+}

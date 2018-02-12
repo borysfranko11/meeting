@@ -1,0 +1,160 @@
+<ion-view>
+<ion-content has-bouncing="false">
+    <form >
+    <div id="a" class="list image">
+        <ion-item class="item-image">
+            <image src="./image/log.png" />
+        </ion-item>
+    </div>
+    <div class="list invite">
+        <ion-item>
+            <h1>
+                诚邀
+            </h1>
+        </ion-item>
+        <ion-item class="item-input">
+            <input placeholder="参会人姓名" ng-model="form.name">
+        </ion-item>
+        <ion-item>
+            <h3>会议时间:&nbsp&nbsp{{meet.time}}</h3>
+            <h3>会议地点:&nbsp&nbsp{{meet.address}}</h3>
+        </ion-item>
+    </div>
+    <ion-list>
+        <ion-item>
+           <h1>
+               填写个人信息
+           </h1>
+        </ion-item>
+        <ion-item class="item-text-wrap">
+            <span>
+                    温馨提示：请在2017-07-19 18:00前完成，如未 完成则视同放弃参加会议。
+                </span>
+        </ion-item>
+        <ion-item>
+            <h2>
+                去程出发日期
+            </h2>
+        </ion-item>
+        <ion-item class="item-input">
+                <button class="button button-light icon-right button-full ion-chevron-down" ng-click="openDatePicker('go','time')"> {{ form.go.time }} </button>
+        </ion-item>
+            <ion-toggle toggle-class="toggle-calm" ng-model="flag.gotravel"> 不需要预定机票/火车票</ion-toggle>
+
+        <div ng-if="!flag.gotravel">
+            <ion-item>
+                <h2>去程出行方式</h2>
+            </ion-item>
+            <div class="item radio" >
+                <label for="gotrain"><input id="gotrain" checked name="type" type="radio"  value=true />火车<span></span></label>
+                <label for="goplane"><input id="goplane" name="type" type="radio"  value=false/>飞机<span></span></label>
+            </div>
+        <ion-item>
+            <h2>去程意向航班号/车次号</h2>
+        </ion-item>
+        <ion-item class=" item-input">
+            <input placeholder=请填写>
+        </ion-item>
+        <ion-item>
+            <h2>去程出发地址</h2>
+        </ion-item>
+        <ion-item class="item-input">
+            <input placeholder=请填写>
+        </ion-item>
+        <ion-item>
+            <h2>去程目的地址</h2>
+        </ion-item>
+        <ion-item class="item-input">
+            <input placeholder=请填写>
+        </ion-item>
+        <ion-item>
+            <h2>是否需要接机</h2>
+        </ion-item>
+        <div class="item radio">
+            <label for="goneed"><input id="goneed" name="type" type="radio" checked  value=true />需要<span></span></label>
+            <label for="gowithout"><input id="gowithout" name="type" type="radio"  value=false/>不需要<span></span></label>
+        </div>
+        </div>
+        <ion-toggle toggle-class="toggle-calm" ng-model="flag.hotel">不需要预订酒店</ion-toggle>
+        <div ng-if="!flag.hotel">
+            <ion-item>
+                <h2>意向房型</h2>
+            </ion-item>
+            <div class="item type">
+                <button class="button button-light icon-right button-full ion-chevron-down" ng-click="openSelect()">
+                    {{form.hotel.type}}
+
+                </button>
+                <ul class="select" ng-show="flag.type">
+                    <li ng-repeat="type in types"  ng-click="selectType(type)">{{type}}</li>
+                </ul>
+
+            </div>
+            <ion-item>
+                <h2>入住日期</h2>
+            </ion-item>
+            <ion-item class="item-input">
+                <button class="button button-light icon-right button-full ion-chevron-down" ng-click="openDatePicker('hotel','checkIn')">{{form.hotel.checkIn}}</button>
+            </ion-item>
+            <ion-item>
+                <h2>退房日期</h2>
+            </ion-item>
+            <ion-item class="item-input">
+                <button class="button button-light icon-right button-full ion-chevron-down" ng-click="openDatePicker('hotel','checkOut')">{{form.hotel.checkOut}}</button>
+            </ion-item>
+        </div>
+        <ion-item>
+            <div class="line"></div>
+        </ion-item>
+        <ion-item>
+            <h2>
+                返程出发日期
+            </h2>
+        </ion-item>
+        <ion-item class="item-input">
+            <button class="button-light button button-full icon-right ion-chevron-down " ng-click="openDatePicker('back','time')">{{form.back.time}}</button>
+        </ion-item>
+        <ion-toggle toggle-class="toggle-calm" ng-model="flag.backtravel"> 不需要预定机票/火车票</ion-toggle>
+        <div ng-if="!flag.backtravel">
+            <ion-item>
+                <h2>返程出行方式</h2>
+            </ion-item>
+            <div  class="item radio">
+                <label for="backtrain"><input id="backtrain" name="type"  type="radio" checked  value=true />火车<span></span></label>
+                <label for="backplane"><input id="backplane" name="type" type="radio"  value=false/>飞机<span></span></label>
+            </div>
+            <ion-item>
+                <h2> 返程意向航班号/车次号</h2>
+            </ion-item>
+            <ion-item class=" item-input">
+                <input placeholder=请填写>
+            </ion-item>
+            <ion-item>
+                <h2> 返程出发地址</h2>
+            </ion-item>
+            <ion-item class="item-input">
+                <input placeholder=请填写>
+            </ion-item>
+            <ion-item>
+                <h2> 返程目的地址</h2>
+            </ion-item>
+            <ion-item class="item-input">
+                <input placeholder=请填写>
+            </ion-item>
+            <ion-item>
+                <h2>是否需要接机</h2>
+            </ion-item>
+            <div class="item radio">
+                <label for="backneed"><input id="backneed" name="type" type="radio"  checked value=true />需要<span></span></label>
+                <label for="backwithout"><input id="backwithout" name="type" type="radio"  value=false/>不需要<span></span></label>
+            </div>
+        </div>
+        <ion-item>
+
+            <a class="button button-full button-calm" ng-click="showPopup()">提交</a>
+
+        </ion-item>
+    </ion-list>
+    </form>
+</ion-content>
+</ion-view>

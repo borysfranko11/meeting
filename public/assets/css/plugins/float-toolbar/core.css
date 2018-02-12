@@ -1,0 +1,12 @@
+/**
+ * Author: jzco
+ * Email: freejzco@sina.com
+ * License: MIT
+ * Version: v1.0
+ */
+
+/* 右侧固定导航栏 */
+.jc-float-toolbar{position: fixed; right: 0; top: 50%; margin-top: -100px; z-index: 100;}
+.jc-float-toolbar>article section{position: relative; text-align: center; margin: 2px 0;}
+.jc-float-toolbar .caption{position: relative; right: 0; top: 0; display: block; width: 30px; height: 30px; line-height: 30px; border: 1px solid #00b6b8; background-color: #00b6b8; color: #FFF; border-radius: 2px 0 0 2px; z-index: 130;}
+.jc-float-toolbar .detail{position: absolute; right: -50px; top: 0; width: 80px; height: 30px; line-height: 30px; border: 1px solid #00b6b8; background-color: #FFF; border-radius: 2px 0 0 2px; z-index: 120;}

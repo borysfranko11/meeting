@@ -1,0 +1,1 @@
+*/5 * * * * /data/work/sys/php/bin/php /data/work/web/meetingv2.eventown.com/artisan schedule:run >> /dev/null 2>&1

@@ -1,0 +1,117 @@
+header h1 {
+    padding: 10px;
+    border-bottom: 1px solid #E7EBEE;
+    /* border-left: 5px solid #00B6B9; */
+    font-size: 20px;
+    color: #333;
+    padding-left: 0;
+}
+header h1 span {
+    display: inline-block;
+    vertical-align: bottom;
+    margin-right: 10px;
+    width: 6px;
+    height: 21px;
+    background: #00B6B9;
+}
+header article {
+    padding: 20px 0;
+    background: none;
+}
+main article {
+    /*margin-top: 22px; */
+    padding: 0;
+}
+/* basicNeeds */
+.meet-dairy{
+    text-decoration: none;
+    color: #00B6B9;
+    padding-left: 16px;
+}
+.meet-dairy:focus, .meet-dairy:hover {
+    color: #23527c;
+    text-decoration: none;
+}
+/* 区域需求 */
+.cont-img{
+    max-height: 300px;
+    overflow: hidden;
+}
+.image {
+    width: 100%;
+    display: block;
+}
+.cont-card .el-col:nth-child(3n+5){
+    margin-left: 0;
+}
+.cont-card .el-col:nth-child(n+5){
+    margin-top: 20px;
+}
+.cont-card .el-form-item__content{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.img-cont{
+    margin-top: 20px;
+}
+.img-cont p:last-child{
+    margin-bottom: 0;
+}
+.img-cont span{
+    padding-left: 0;
+}
+.img-cont p:nth-child(1) span{
+    font-size: 16px;
+}
+.icon-weizhixinxi{
+    font-size: 14px;
+}
+.img-cont .iconfont{
+    padding-right: 8px;
+}
+.img-cont p:nth-child(3) .iconfont{
+    padding-right: 0;
+}
+.el-input-number span {
+    padding-left: 0;
+}
+.cont .el-input-number {
+    width: auto;
+}
+.cont-num span{
+    padding-left: 0;
+}
+.cont-num .el-col:nth-child(4n+5){
+    padding-left: 0;
+    margin-left: 0;
+}
+.cont-num .el-col:nth-child(n+5){
+    margin-top: 10px;
+}
+.mb10 {
+    margin-bottom: 10px;
+    /* padding-bottom: 10px; */
+    display: block;
+}
+/* 餐饮需求部分 */
+.food-needs .el-table thead{
+    text-align: center;
+}
+.food-needs .el-table thead tr:nth-child(1){
+    font-size: 16px;
+}
+.change-block{
+    display: inline-block;
+    vertical-align: middle;
+}
+body .meeting-needs{
+    background: #f5f7f8;
+    padding-top: 22px;
+    margin-top: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 22px;
+}
+main .meeting-needs {
+    margin-top: 22px;
+}

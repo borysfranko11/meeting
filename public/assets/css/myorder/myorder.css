@@ -1,0 +1,120 @@
+/* 头部样式 */
+label{
+    font-weight: normal;
+}
+.bg-grow{
+    background: #f2f7f8;
+}
+body{
+    padding: 10px 20px;
+}
+.cont{
+    background: #fff;
+    padding: 20px;
+}
+.otitle{
+    font-size: 22px;
+    padding-right:40px;
+}
+.meeting-sure{
+    color: #00B6B9;
+}
+header article{
+    padding: 20px;
+    background: #E7EBEE;
+}
+/* 中间部分样式 */
+main h1{
+    padding: 10px;
+    border-bottom: 1px solid #E7EBEE;
+    /* border-left: 5px solid #00B6B9; */
+    font-size: 20px;
+    color: #333;
+    padding-left: 0;
+}
+main h1 span{
+    display: inline-block;
+    vertical-align: bottom;
+    margin-right: 10px;
+    width: 6px;
+    height: 21px;
+    background: #00B6B9;
+}
+main article{
+    margin-top: 22px;
+}
+.cont .el-input-number{
+    width: 100%;    
+}
+.cont .el-form-item__label{
+    color: #3D464C;  
+}
+.basic-color{
+    color: #00B6B9;
+}
+.bd1{
+    margin-top: 22px;
+    border-bottom: 1px dashed #e4e8ec;
+    margin-bottom: 22px;
+}
+/* 图片上传组件的样式 */
+.avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #20a0ff;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 120px;
+    height: 120px;
+    line-height: 120px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+/* 对星星进行样式修改 */
+.cont .el-rate {
+    line-height: 22px;
+}
+.place-rate .el-form-item__label{
+    padding: 0px 12px 0px 0;
+}
+.omerge{
+    margin-bottom: 6px;
+}
+.mt0{
+    margin-top: 0;
+}
+.place-rate .nosure{
+    margin-top: -10px;
+    position: absolute;
+}
+.sure{
+    background: #00B6B9;
+}
+.sure:hover{
+    background: #09c9cc;
+}
+.sure-hov:hover{
+    color: #00B6B9;
+    border-color: #00B6B9;
+}
+.el-button--primary.is-active, .el-button--primary:active {
+    background: #00B6B9;
+    border-color: #00B6B9;
+    color: #fff;
+}
+.el-button--primary:focus, .el-button--primary:hover {
+    background: #00B6B9;
+    border-color: #00B6B9;
+    color: #fff;
+}

@@ -1,0 +1,38 @@
+.ibox-title{border-width: 1px 0 0;}
+.wizard.vertical > .steps{width: 20%;}
+.wizard.vertical > .content{width: 75%;}
+.wizard>.content > .body{position: relative; width: 100%; background-color: #f6f6f6;}/* 解决 step.js 在此出现的bug, 无法由内部元素撑开外层 */
+
+.choice-pos-rel{position: relative;}
+.choice-pos-rel .arrow{position: absolute; top: 4px; left: -8px; color: #00b6b8;}
+
+/* -.-.- 特制按钮 -.-.- */
+.oper-btn{display:inline-block;padding:2px 12px;margin-top:4px;margin-bottom:5px;font-size:14px;font-weight:400;color:#00b6b8;line-height:1.42857143;text-align:center;white-space:nowrap;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid #00b6b8;border-radius:4px;background-color:transparent;transition:all .5s}
+.i-close{font-size: 12px; padding-left: 10px; color: rgba(211, 211, 211, 1);}
+
+/* -.-.- 特制按钮 -.-.- */
+.data-loading{display: none;}
+.data-loading > div{margin: 20px 20px;}
+.data-loading > div .icon{font-size: 20px;}
+.data-loading > div .desc{padding-left: 10px;}
+
+.p-l-none{padding-left: 0;}
+.p-b-none{padding-bottom: 0;}
+
+/* -.-.- 横向文件布局样式 -.-.- */
+.desc-file-box{float: left; width: 220px;}
+.desc-file{border: 1px solid #e7eaec; padding: 0; background-color: #fff; margin-right: 20px;}
+.desc-file a{cursor: pointer; color: #676a6c; text-decoration: none;}
+.desc-file img{border-radius: 2px 2px 0 0;}
+.desc-file-content{padding: 10px; background-color: #f8f8f8; border-top: 1px solid #e7eaec; color: #676a6c;}
+.desc-file-content .star{color: #ffb20a;}
+.desc-file-content small{color: #676a6c;}
+
+.p-l-sm{padding-left:14px}
+
+/* -.-.- 内联盒子布局 -.-.- */
+.inline-box{display: flex;}
+.box-left{float:left; border: 1px solid #e7eaec; padding: 0; background-color: #fff; width: 200px;}
+.box-left img{border-radius: 2px 2px 0 0;}
+.box-left-close{ flex: 1; flex-flow:row wrap;justify-content:space-around; float:left; border: 1px solid #e7eaec; margin-left: 10px; background-color: #fff; width: auto;}
+.box-detail{margin-top: 5px;font-size: 12px; padding-left: 10px;}

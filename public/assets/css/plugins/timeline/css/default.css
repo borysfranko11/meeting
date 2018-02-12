@@ -1,0 +1,165 @@
+/**
+ * Author: jzco
+ * Email: freejzco@sina.com
+ * License: MIT
+ * Version: v1.0
+ */
+
+.jc_tl_main{width: 100%;}
+
+.jc_tmtimeline {
+	position: relative;
+	margin: 30px 0 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+/* -= 时间轴链接线(竖向) =- */
+.jc_tmtimeline:before {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	content: '';
+	width: 10px;
+	background: #CDF2F2;
+	left: 108px;
+	margin-left: -10px;
+}
+
+/* -= 列表区域 =- */
+.jc_tmtimeline > li {
+	position: relative;
+}
+
+/* -= 左侧时间显示区域 =- */
+.jc_tmtimeline > li .jc_tmtime {
+	display: block;
+	width: 300px;
+	padding-right: 230px;
+	position: absolute;
+}
+
+.jc_tmtimeline > li .jc_tmtime span {
+	display: block;
+	text-align: right;
+}
+
+/* -= 左侧年月日显示样式 =- */
+.jc_tmtimeline > li .jc_tmtime span:first-child {
+	padding-left: 8px;
+	font-size: 0.9em;
+	color: #bdd0db;
+}
+
+/* -= 左侧时间显示样式 =- */
+.jc_tmtimeline > li .jc_tmtime span:last-child {
+	font-size: 1.5em;
+	color: #7EDEDF;
+}
+
+/* -= 左侧步骤显示样式 =- */
+.jc_tmtimeline > li .jc_tmstep {
+	position: absolute;
+	top: 0;
+	left: 108px;
+	width: 40px;
+	height: 40px;
+	speak: none;
+	margin: 0 0 0 -25px;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	font-size: 1.4em;
+	line-height: 40px;
+	-webkit-font-smoothing: antialiased;
+	color: #fff;
+	background: #23c6c8;
+	border-radius: 50%;
+	box-shadow: 0 0 0 8px #CDF2F2;
+	text-align: center;
+}
+
+/* -= 右侧内容区块样式 =- */
+.jc_tmtimeline > li .jc_tmcontent {
+	margin: 0 0 15px 150px;
+	background: #f6f6f6;
+	color: #676a6c;
+	padding: 1em;
+	font-size: 13px;
+	line-height: 1.4;
+	position: relative;
+	border: 1px solid #23c6c8;
+	border-radius: 5px;
+}
+
+.jc_tmtimeline > li .jc_tmcontent h3 {
+	margin-top: 0;
+	padding: 0 0 10px 0;
+	font-size: 13px;
+	border-bottom: 1px solid #7EDEDF;
+}
+
+/* -= 右侧对应步骤三角图标 =- */
+.jc_tmtimeline > li .jc_tmcontent:after {
+	position: absolute;
+	top: 10px;
+	right: 100%;
+	content: " ";
+	height: 0;
+	width: 0;
+	pointer-events: none;
+	border: solid transparent;
+	border-right-color: #23c6c8;
+	border-width: 10px;
+}
+
+@media screen and (max-width: 65.375em)
+{
+	.jc_tmtimeline > li .jc_tmtime span:last-child {
+		font-size: 1.5em;
+	}
+}
+
+@media screen and (max-width: 47.2em) {
+	.jc_tmtimeline:before {
+		display: none;
+	}
+
+	.jc_tmtimeline > li .jc_tmtime {
+		width: 100%;
+		position: relative;
+		padding: 0 0 20px 0;
+	}
+
+	.jc_tmtimeline > li .jc_tmtime span {
+		text-align: left;
+	}
+
+	.jc_tmtimeline > li .jc_tmcontent {
+		margin: 0 0 30px 0;
+		padding: 1em;
+		font-weight: 400;
+		font-size: 95%;
+	}
+
+	.jc_tmtimeline > li .jc_tmcontent:after {
+		right: auto;
+		left: 20px;
+		border-right-color: transparent;
+		border-bottom-color: #23c6c8;
+		top: -20px;
+	}
+
+	.jc_tmtimeline > li:nth-child(odd) .jc_tmcontent:after {
+		border-right-color: transparent;
+		border-bottom-color: #23c6c8;
+	}
+
+	.jc_tmtimeline > li .jc_tmicon {
+		position: relative;
+		float: right;
+		left: auto;
+		margin: -55px 5px 0 0;
+	}
+}
