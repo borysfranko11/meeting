@@ -11,19 +11,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
-use App\Models\Mobileloginlog;
 use Hash;
 use Mockery\Exception;
 
 class ServiceController extends Controller
 {
 
-    private $_mobile_log;
     public function __construct()
     {
         parent::__construct();
-        $this->_mobile_log = new Mobileloginlog();
-
     }
 
     public function request_captcha() {
