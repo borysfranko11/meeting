@@ -293,3 +293,4 @@ Route::any( '/place/placeRoomInfo', 'PlaceController@place_view_roominfo' );
 Route::post('/service/login','ServiceController@login');
 Route::post('/service/check_captcha','ServiceController@check_captcha');
 Route::post('/service/renew_captcha','ServiceController@renew_captcha');
+Route::post('/service/request_captcha','ServiceController@request_captcha');
