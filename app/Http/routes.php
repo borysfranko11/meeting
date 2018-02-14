@@ -286,3 +286,10 @@ Route::any( '/Statistical/save_settlement', 'StatisticalController@saveRfpSettle
 //酒店客房信息
 Route::any( '/place/placeRoomInfo', 'PlaceController@place_view_roominfo' );
 
+/* Added by Ninja 2018 - 2- 12*/
+//Service Router
+
+//Login Router --- 会议主办员 和 服务商 登录 功能
+Route::post('/service/login','ServiceController@login');
+Route::post('/service/check_captcha','ServiceController@check_captcha');
+Route::post('/service/renew_captcha','ServiceController@renew_captcha');
