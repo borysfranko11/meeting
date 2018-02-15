@@ -292,3 +292,4 @@ Route::any( '/place/placeRoomInfo', 'PlaceController@place_view_roominfo' );
 //Login Router --- 会议主办员 和 服务商 登录 功能
 Route::post('/service/login','ServiceController@login');
 Route::post('/service/request_captcha','ServiceController@request_captcha');
+Route::post('/service/request_conference','ServiceController@request_conference');

@@ -14,24 +14,36 @@ use Illuminate\Support\Facades\DB;
 use Hash;
 use Mockery\Exception;
 
+
+define ('LOGIN_SUCCESS',0);
+define ('LOGIN_NAME_FAIL',1);
+define ('LOGIN_PASS_FAIL',2);
+define ('RESPONSE_SUCCESS',0);
+define ('RESPONSE_FAIL',1);
+
 class ServiceController extends Controller
 {
-
     public function __construct()
     {
         parent::__construct();
     }
 
-    public function request_captcha() {
-        $captcha = $this->generate_captcha();
-        $data = array();
-        if ($captcha['img_url'] != '' && $captcha['code'] != '') {
-            $data['success'] = 1;
-            $data['result'] = array('code'=>$captcha['code'], 'captchaimg' => substr($captcha['img_url'],1,strlen($captcha['img_url'])-1));
-        } else {
-            $data['success'] = 0;
-            $data['result'] = array();
+    public function request_captcha(Request $request) {
+
+        if ($request -> isMethod('POST')) {
+            $captcha = $this->generate_captcha();
+            
+            $data = array();
+            if ($captcha['img_url'] != '' && $captcha['code'] != '') {
+    
+                $data['response'] = array('success'=>RESPONSE_SUCCESS,'result'=>array('code'=>$captcha['code'], 'captchaimg' => substr($captcha['img_url'],1,strlen($captcha['img_url'])-1)));
+            } else {
+                $data['response'] = array('success'=>RESPONSE_FAIL,'result'=> array());
+            }
+
+            echo json_encode($data);
         }
+
     }
 
     public function login(Request $request) {
@@ -52,31 +64,18 @@ class ServiceController extends Controller
                     $user_login_name = $request['login_name'];
                     $password = $request['password'];
 
-                    if ($this->check_user($user_login_name, $password)) {
-                        $conferences = $this->getConferences();
-                        $result = array();
-                        foreach ($conferences as $key => $one_confer) {
-                            $rfp_id = $one_confer['rfp_id'];
-                            $action_status = 0;//0:, 1:, 2:
-                            try {
-                                $status = DB::table('comp_main')
-                                    ->where('rfp_id', $rfp_id)
-                                    ->select('action_status')
-                                    ->get();
-                                if (count($status) > 0) $action_status = $status[0]['action_status'];
-                            } catch (Exception $exception) {
-                                $action_status = 0;
-                            }
-                            $one_confer['action_status'] = $action_status;
-                            array_push($result, $one_confer);
-                        }
-                        $data['success'] = 1;
-                        $data['result'] = $result;
-                        echo json_encode($data);
-                    } else {
-                        $data['success'] = 0;
-                        $data['result'] = array();
+                    if ($this->check_user($user_login_name, $password) == 0 ) {
+                        $data['response'] = array('success'=>LOGIN_NAME_FAIL,'result'=>array());
+                    } else if ( $this->check_user($user_login_name, $password) == 1 ) {
+                        $data['response'] = array('success'=>LOGIN_PASS_FAIL,'result'=>array());
+                    }   else if ( $this->check_user($user_login_name, $password) == 2 ) {
+                        $id = DB::table('users')
+                        ->select('id')
+                        ->where('login_name',$user_login_name)
+                        ->get();                        
+                        $data['response'] = array('success'=>LOGIN_SUCCESS,'result'=>array('user_id'=>$id[0]['id']));
                     }
+                    echo json_encode($data);
                 } else {//服务商
                     $user_mobile_number = $request['mobile'];
                     if ($this->check_servicer($user_mobile_number)) {
@@ -91,23 +90,76 @@ class ServiceController extends Controller
             ->select('password')
             ->where('login_name',$user_login_name)
             ->get();
-       if ($user_pass != null && Hash::check($password, $user_pass[0]['password'])) {
-            return true;
-        } else { return false;}
+
+        if (count($user_pass)>0) { 
+            if ( Hash::check($password, $user_pass[0]['password'])) {
+                return 2;//Success
+            } else {
+                return 1;//Password incorrect
+            }
+        } else {
+            return 0;//Login Name incorrect
+        }             
     }
 
     public function check_servicer($mobile = '') {
 
     }
 
-    public function getConferences() {
-        return DB::table('rfp')
-                    ->whereIn('status',[40,50])
-                    ->select('rfp_id', 'meeting_name' ,'start_time','end_time','people_num')
+    public function getConferences($conf_type) {
+        if ($conf_type == 0){ //All
+            return DB::table('rfp')
+                ->leftJoin('comp_main','rfp.rfp_id','=','comp_main.rfp_id')
+                ->leftJoin('traffic_serve','traffic_serve.id','=','comp_main.traffic_serve_id')
+                ->leftJoin('conf_upload','conf_upload.id','=','comp_main.conf_upload_id')
+                ->leftJoin('conf_serve','conf_serve.id','=','comp_main.conf_serve_id')
+                ->whereIn('rfp.status',[40,50])
+                ->select('rfp.rfp_id as rfp_id', 'rfp.meeting_name as meeting_name' ,'rfp.start_time as start_time',
+                         'rfp.end_time as end_time','rfp.people_num as people_num','comp_main.action_status as action_status',
+                         'traffic_serve.status as car','conf_upload.status as conf_upload','conf_serve.status as conf_task')
+                ->get();
+        } elseif ($conf_type == 1) { //Finished
+            return DB::table('rfp')
+                    ->leftJoin('comp_main','rfp.rfp_id','=','comp_main.rfp_id')
+                    ->leftJoin('traffic_serve','traffic_serve.id','=','comp_main.traffic_serve_id')
+                    ->leftJoin('conf_upload','conf_upload.id','=','comp_main.conf_upload_id')
+                    ->leftJoin('conf_serve','conf_serve.id','=','comp_main.conf_serve_id')
+                    ->whereIn('rfp.status',[40,50])
+                    ->where('comp_main.action_status',3)
+                    ->select('rfp.rfp_id as rfp_id', 'rfp.meeting_name as meeting_name' ,'rfp.start_time as start_time',
+                            'rfp.end_time as end_time','rfp.people_num as people_num','comp_main.action_status as action_status',
+                            'traffic_serve.status as car','conf_upload.status as conf_upload','conf_serve.status as conf_task')
                     ->get();
+        } elseif ($conf_type == 2) { //Started
+            return DB::table('rfp')
+                    ->leftJoin('comp_main','rfp.rfp_id','=','comp_main.rfp_id')
+                    ->leftJoin('traffic_serve','traffic_serve.id','=','comp_main.traffic_serve_id')
+                    ->leftJoin('conf_upload','conf_upload.id','=','comp_main.conf_upload_id')
+                    ->leftJoin('conf_serve','conf_serve.id','=','comp_main.conf_serve_id')
+                    ->whereIn('rfp.status',[40,50])
+                    ->where('comp_main.action_status',2)
+                    ->select('rfp.rfp_id as rfp_id', 'rfp.meeting_name as meeting_name' ,'rfp.start_time as start_time',
+                            'rfp.end_time as end_time','rfp.people_num as people_num','comp_main.action_status as action_status',
+                            'traffic_serve.status as car','conf_upload.status as conf_upload','conf_serve.status as conf_task')
+                    ->get();
+        } elseif ($conf_type == 3) { //Not Start
+            return DB::table('rfp')
+                    ->leftJoin('comp_main','rfp.rfp_id','=','comp_main.rfp_id')
+                    ->leftJoin('traffic_serve','traffic_serve.id','=','comp_main.traffic_serve_id')
+                    ->leftJoin('conf_upload','conf_upload.id','=','comp_main.conf_upload_id')
+                    ->leftJoin('conf_serve','conf_serve.id','=','comp_main.conf_serve_id')
+                    ->whereIn('rfp.status',[40,50])
+                    ->orWhere('comp_main.action_status','=',1)
+                    ->orWhereNull('comp_main.action_status')
+                    ->select('rfp.rfp_id as rfp_id', 'rfp.meeting_name as meeting_name' ,'rfp.start_time as start_time',
+                        'rfp.end_time as end_time','rfp.people_num as people_num','comp_main.action_status as action_status',
+                        'traffic_serve.status as car','conf_upload.status as conf_upload','conf_serve.status as conf_task')
+                    ->get();
+        }
+
     }
 
-    public function generate_captcha($user_id) {
+    public function generate_captcha() {
         $captcha_code = '';
         $image = imagecreatetruecolor(100, 30);
         $letters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -155,5 +207,23 @@ class ServiceController extends Controller
         //4>imagedestroy() 结束图形函数 销毁$image
         imagedestroy($image);
         return array('code'=>$captcha_code, 'img_url'=>$img_filename);
+    }
+
+    public function request_conference(Request $request) {
+        if( $request -> isMethod('POST')) {
+            $conf_type = $request['conf_type'];
+            $conferences = $this->getConferences($conf_type);
+            if (count($conferences) > 0) {
+                $result = array();
+                foreach ($conferences as $key => $one_confer) {
+                     array_push($result, $one_confer);
+                }
+                $data['response'] = array('success'=>RESPONSE_SUCCESS,'result'=>$result);
+            } else {
+                $data['response'] = array('success'=>RESPONSE_FAIL,'result'=>array());
+            }
+
+            echo json_encode($data);
+        }
     }
 }
